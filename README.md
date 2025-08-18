@@ -5,4 +5,4 @@ Este es un repositorio para subir mis prácticas de aplicaciones web
 ### **Matrícula:** 202250480
 ### **Nombre:** Hugo Javier Rodriguez Bravo
 ### **Materia:** Desarrollo de Aplicaciones WEB
-
+### **Periodo:** Otoño 2025
