@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+    <h1>Guacamole (clásico) </h1> <!--Se utiliza h1 porque va a ser el encabezado principal, es decir de qué receta estamos hablando, estamos en la sección de Guacamole clásico -->
+
+    <!--Para esta se ocupa p de parrafo para indicar precisamente eso jaja, pero dentro metemos blockquote que indica una cita, por eso está indicado con comillas " "-->
+    <p> 
+        <blockquote>
+            "Existe un condimento que no puede faltar en toda mesa mexicana. Algunos lo consideran una salsa, otros un aderezo, algunos incluso le llaman ensalada, otros simplemente le llaman por su nombre propio: Guacamole."
+        </blockquote> 
+    </p> 
+
+    <p>
+        Aunque el guacamole se prepara de diferentes formas según la zona de la que provenga la receta, la base suele ser la misma. Aquí te mostramos una receta muy completa para preparar esta conocida salsa mexicana:
+    </p>
+
+    <h2>Ingredientes </h2> <!--Se ocupa h2 porque es un subtítulo dentro de la receta para guacamole-->
+
+    
+    <ul> <!--Se ocupa una lista desordenada porque en este caso no importa el orden de los elementos, simplemente importa listarlos-->
+        <li>
+            4 o 5 aguacates maduros
+        </li>
+        <li>
+            1 cebolla mediana (normal)
+        </li>
+        <li>
+            1 tomate mediano
+        </li>
+        <li>
+            1 chile serrano (o un jalapeño en conserva)
+        </li>
+        <li>
+            Zumo de 1/2 lima o limón
+        </li>
+        <li>
+            1 manojo de cilantro fresco
+        </li>
+        <li>
+            Sal
+        </li>
+    </ul>
+    
+    <h2>Instrucciones</h2> <!--Lo mismo, sigue siendo un subtítulo para guacamole-->
+
+    <ol><!--Para este caso ocupamos una lista ordenada porque si se necesita seguir un proceso con un orden correcto.-->
+        <li>
+            Lavar bien el tomate y el manojo de cilantro 
+        </li>
+        <li>
+            Pelar la cebolla y quitarle la capa exterior
+        </li>
+        <li>
+            Trozar la cebolla y el tomate en trozos muy pequeños
+        </li>
+        <li>
+             Picar las hojas de cilantro lo más fino posible, desechando los tallos
+        </li>
+        <li>
+            Poner todos los ingredientes en un recipiente, preferentemente un molcajete
+        </li>
+        <li>
+            Cortar por la mitad los aguacates, retirando el hueso
+        </li>
+        <li>
+            Sacar toda la pulpa posible de los aguacates y ponerla en el molcajete
+        </li>
+        <li>
+            Añadir el zumo de 1/2 lima con una pizca de sal
+        </li>
+        <li>
+            Añadir un chile serrano muy bien picadito
+        </li>
+        <li>
+            Machacar todos los ingredientes en el molcajete
+        </li>
+    </ol>
+    
+    <p>
+        En caso de no contar con un molcajete, se puede utilizar un tenedor procurando que la pulpa del aguacate se mezcle con los demás ingredientes. Debe quedarnos un guacamole con los trozos visibles, pero opcionalmente puede pasarse por la batidora para dejarlo más cremoso y con una textura más uniforme.
+    </p>
+
+    <article>
+        <header>
+        <!--Aquí se ocupa la etiqueta <time> para referenciar una fecha para que el navegador o un humano puedan identificarlo-->
+        <p>Publicado por Masterchef, 
+            <time datetime="2018-11-15">November 15, 2018</time>
+        </p>
+        </header>
+
+        <h2>Bajito y Despacito</h2>
+
+        <p>
+        <!--Hacemos un énfasis semántico con la etiqueta <em> en extremadamente-->
+        Esta semana estamos <em>extremadamente</em> emocionados por presentar una nueva técnica de cocina llamada 
+        <dfn><i>sous vide</i></dfn>.<!-- Aquí la etiqueta <dfn> define la primer aparición del término sous vide para que sea identificable a los buscadores entender que se está definiendo y la etiqueta <i> para la cursiva. -->
+        Con la técnica <i>sous vide</i>, tú sumerges un recipiente (generalmente de plástico sellado al vacío) en un baño de agua que precisamente se adapta a la temperatura requerida para que la comida sea cocinada.
+        En este programa, 
+        <cite>Cocina para Geeks</cite>, <!-- La etiqueta <cite> indica el título de una obra -->
+        Jaime Potter describe la técnica como 
+        <q>poción mágica a temperatura ultra baja</q>.<!-- <q> nos indica una cita corta-->
+        </p>
+
+        <p>
+        La siguiente semana, prepararemos 
+        <b>Salmon Sous Vide con Eneldo Holandés</b>.<!-- la etiqueta <b> nos da negrita sin semántica adicional -->
+        Para asistir al programa, contáctanos antes del 
+        <time datetime="2018-11-30">30 de Noviembre</time>.  <!-- Otra fecha con <time> -->
+        </p>
+
+        <p>
+        registro@masterchef.com<br><!--<br> salto de línea-->
+        552-336-1800
+        </p>
+
+        
+        <p><small> <!--Se usa la etiqueta <small> para indicar un texto como aclaraciones, avisos, etc-->
+        Advertencia: El salmón cocinado a la <i>sous vide</i> no está pasteurizado. <!--Volvemos a usar cursiva-->
+        Evítalo si se está embarazada o se tienen problemas de alergia e inmunidad.
+        </small></p>
+    </article>
+</body>
+</html>
