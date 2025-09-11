@@ -95,5 +95,13 @@
         unset($a,$b,$c,$d,$e,$f);
     ?>
 
+    <h2>Ejercicio 7</h2>
+    <?php
+        echo "<ul>";
+        echo "<li>Versión de PHP: ".$_SERVER['SERVER_SOFTWARE']."</li>";
+        echo "<li>Nombre del SO servidor: ".php_uname()."</li>";
+        echo "<li>Idioma del navegador: ".$_SERVER['HTTP_ACCEPT_LANGUAGE']."</li>";
+        echo "</ul>";
+    ?>
 </body>
 </html>
