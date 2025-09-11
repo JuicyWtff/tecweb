@@ -62,7 +62,20 @@
         echo "<pre>"; var_dump($b); echo "</pre>";
         $z[0]="MySQL";
         echo "<pre>"; var_dump($a,$z); echo "</pre>";
-        unset($a,$b,$c,$z);
+        
     ?>
+
+    <h2>Ejercicio 4</h2>
+    <?php
+        echo '<pre>';
+        echo 'GLOBALS["a"]: '; var_dump($GLOBALS['a']);
+        echo 'GLOBALS["b"]: '; var_dump($GLOBALS['b']);
+        echo 'GLOBALS["c"]: '; var_dump($GLOBALS['c']);
+        echo 'GLOBALS["z"]: '; print_r($GLOBALS['z']);
+        echo '</pre>';
+
+        unset($a, $b, $c, $z);
+    ?>
+
 </body>
 </html>
