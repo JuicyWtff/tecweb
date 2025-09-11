@@ -77,5 +77,15 @@
         unset($a, $b, $c, $z);
     ?>
 
+    <h2>Ejercicio 5</h2>
+    <?php
+        $a="7 personas";
+        $b=(integer)$a;
+        $a="9E3";
+        $c=(double)$a;
+        echo "<pre>"; var_dump($a,$b,$c); echo "</pre>";
+        unset($a,$b,$c);
+    ?>
+
 </body>
 </html>
