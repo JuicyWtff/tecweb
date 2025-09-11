@@ -30,5 +30,23 @@
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
     ?>
+
+    <h2>Ejercicio 2</h2>
+    <?php
+        $a = "ManejadorSQL";
+        $b = 'MySQL';
+        $c = &$a;
+        echo '<h4>Estado inicial</h4>';
+        echo '<pre>'; var_dump($a,$b,$c); echo '</pre>';
+
+        $a = "PHP server";
+        $b = &$a;
+
+        echo '<h4>Después de reasignar</h4>';
+        echo '<pre>'; var_dump($a,$b,$c); echo '</pre>';
+        echo "<p>Al reasignar \$a, también cambió \$c porque era referencia; ahora \$b también referencia a \$a.</p>";
+        unset($a,$b,$c);
+    ?>
+
 </body>
 </html>
