@@ -48,5 +48,21 @@
         unset($a,$b,$c);
     ?>
 
+    <h2>Ejercicio 3</h2>
+    <?php
+        $a="PHP5"; $z[]=&$a;
+        echo "<pre>"; var_dump($a,$z); echo "</pre>";
+        $b="5a version de PHP";
+        echo "<pre>"; var_dump($b); echo "</pre>";
+        $c=$b*10;
+        echo "<pre>"; var_dump($c); echo "</pre>";
+        $a.=$b;
+        echo "<pre>"; var_dump($a,$z); echo "</pre>";
+        $b*=$c;
+        echo "<pre>"; var_dump($b); echo "</pre>";
+        $z[0]="MySQL";
+        echo "<pre>"; var_dump($a,$z); echo "</pre>";
+        unset($a,$b,$c,$z);
+    ?>
 </body>
 </html>
