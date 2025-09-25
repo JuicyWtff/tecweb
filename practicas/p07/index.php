@@ -31,5 +31,22 @@
             echo $_POST["email"];
         }
     ?>
+    <br>
+    <h2>Ejercicio 2</h2>
+    <p>Generación repetitiva de 3 números aleatorios hasta obtener la secuencia: impar, par, impar.</p>
+    <?php
+        $resultado = ImparParImpar();
+        echo "<h3>Se obtuvieron: ". $resultado['numerosGenerados']. " números en " . $resultado['iteraciones']. " iteraciones.</h3>";
+        echo '<pre>';
+            foreach($resultado['matriz'] as $indice => $fila){
+                echo 'Intento' . ($indice+1) . ': ';
+                foreach($fila as $numero){
+                    echo $numero.' ';
+                }
+                echo "\n";
+            }
+        echo '</pre>';
+
+    ?>
 </body>
 </html>
