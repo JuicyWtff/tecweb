@@ -48,5 +48,15 @@
         echo '</pre>';
 
     ?>
+    <br>
+    <h2>Ejercicio 3</h2>
+    <p>Utiliza un ciclo while para encontrar el primer número entero obtenido aleatoriamente, pero que además sea múltiplo de un número dado.</p>
+    <?php
+        require_once('src/funciones.php');
+        if(isset($_GET['x'])){
+          $x=$_GET['x'];
+          echo esMultiplodeX($x);     
+        }
+    ?>
 </body>
 </html>

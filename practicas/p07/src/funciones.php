@@ -28,4 +28,33 @@
         $resultado = ['iteraciones'=> $iteraciones, 'numerosGenerados'=> $iteraciones*3, 'matriz'=>$intentos];
         return $resultado;
     }
+    //EJERCICIO 2
+    /* versión while
+    function esMultiplodeX($x){
+        $flagx = false;
+        $cont = 0;
+        while(!$flagx){
+            $numrand = rand(1,$x*2);
+            $cont++;
+            if(($numrand % $x) ==0){
+                $flagx=true;
+                echo '<h3> El número aleatorio: '. $numrand. ' es múltiplo de: '. $x. ' y se encontró en la iteración: '. $cont. '</h3>';
+            }
+        }
+    }
+    */
+    //version do-while  
+    function esMultiplodeX($x){
+        $flagx = false;
+        $cont = 0;
+
+        do{
+            $numrand = rand(1, $x*2);
+            $cont++;
+            if(($numrand % $x) == 0){
+                $flagx=true;
+                echo '<h3> El número aleatorio: '. $numrand. ' es múltiplo de: '. $x. ' y se encontró en la iteración: '. $cont. '</h3>';
+            }
+        }while(!$flagx);
+    }
 ?>
