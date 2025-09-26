@@ -57,4 +57,32 @@
             }
         }while(!$flagx);
     }
+
+    function abc(){
+        $abecedario = [];
+        for($i=97; $i<= 122; $i++){
+            $abecedario[$i] = chr($i);
+        }
+
+        $tabla = "<table border = 1>
+                    <thead>
+                        <tr>
+                            <th>Código ascii (Clave)</th>
+                            <th>Letra (valor)</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+        
+        foreach($abecedario as $codigo => $letra){
+            $tabla .= "<tr>
+                        <td>{$codigo}</td>
+                        <td>{$letra}</td>
+                    </tr>";
+
+        }
+        $tabla .= "</tbody>
+                </table>";
+
+        return $tabla;
+    }
 ?>
