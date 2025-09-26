@@ -1,3 +1,33 @@
+/*Ejercicio 5 */
+<?php
+    if(isset($_POST['edad']) && isset($_POST['sexo'])){
+        $edad = $_POST['edad'];
+        $sexo = $_POST['sexo'];
+        $mensaje = "";
+        if($sexo == 'femenino' && $edad >=18 && $edad <=35){
+            $mensaje = "<i>Bienvenida, usted está en el rango de edad permitido.</i>";
+        }else{
+            $mensaje = "<i>Lo sentimos no cumple con los requisitos</i>";
+        }
+    
+
+        echo "<!DOCTYPE html>
+            <html lang = 'es'>
+            <head>
+                <meta charset = 'UTF-8'>
+                <tittle> Resultado Ejercicio 5</tittle>
+            </head>
+            <body>
+                <h1>Resultado del ejercicio 5</h1>
+                <p>{$mensaje}</p>
+                <a href= 'index.php'>Volver al formulario</a>
+            </body>
+            </html>";
+
+        die();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,5 +96,21 @@
         require_once('src/funciones.php');
         echo abc();
     ?>
+
+    <br>
+    <h2>Ejercicio 5</h2>
+    <p>Preguntar mediante un formulario edad y sexo y si es mujer cuya edad oscile entre los 18 y 35 años mostrar un mensaje de bienvenida apropiado, en caso contrario deberá devolverse otro mensaje indicando el error.</p>
+    <form action = "index.php" method = "post">
+        <label for="edad"><strong>Edad:</strong></label>
+        <input type="number" id="edad" name="edad" required>
+        <br>
+        <label for="sexo"><strong>Sexo:</strong></label>
+        <input type="radio" id="femenino" name = "sexo" value="femenino" required>
+        <label for="femenino">Femenino</label>
+        <input type= "radio" id="masculino" name="sexo" value="masculino" required>
+        <label for="masculino">Masculino</label>
+        <br>
+        <input type="submit" value="verificar">
+    </form>
 </body>
 </html>
