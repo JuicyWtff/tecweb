@@ -85,6 +85,15 @@
 
     <br/>
     <h2>Ejercicio 6</h2>
-    <p> </p>
+    <p> <strong>Parque Vehicular </strong> </p>
+    <form action="respuestaEj6.php" method = "post">
+        <label for = "matricula ">Buscar por matrícula</label>
+        <input type =  "text" id = "matricula" name = "matricula" />
+        <br/>
+
+        <input type =  "submit" name = "accion" value = "Buscar por Matrícula"/>
+        </br>
+        <input type =  "submit" name = "accion" value = "Mostrar Todos"/>
+    </form>
 </body>
 </html>

@@ -93,4 +93,34 @@
              return "Lo sentimos, no cumple con los requisitos.";
         }
     }
+
+    function obtenerParqueVehicular() {
+        /*Código Duro*/
+        $parque = [
+            "UBN6338" => [
+                "Auto" => ["marca" => "HONDA", "modelo" => 2020, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "Alfonzo Esparza", "ciudad" => "Puebla, Pue.", "direccion" => "C.U."]
+            ],
+            "TLA1234" => [
+                "Auto" => ["marca" => "MAZDA", "modelo" => 2019, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Ma. del Consuelo Molina", "ciudad" => "Puebla, Pue.", "direccion" => "97 Oriente"]
+            ],
+            "ABC5678" => [
+                "Auto" => ["marca" => "VW", "modelo" => 2022, "tipo" => "hatchback"],
+                "Propietario" => ["nombre" => "Juan Carlos Conde", "ciudad" => "Cholula, Pue.", "direccion" => "Calle Ficticia 123"]
+            ]
+            
+        ];
+        return $parque;
+    }
+
+    function buscarVehiculoPorMatricula($matricula, $parque) {
+        // isset() es una forma súper rápida de verificar si una clave existe en un arreglo asociativo.
+        if (isset($parque[$matricula])) {
+            return $parque[$matricula];
+        } else {
+            return null; 
+        }
+    }
+
 ?>
