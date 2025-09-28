@@ -1,33 +1,3 @@
-/*Ejercicio 5 */
-<?php
-    if(isset($_POST['edad']) && isset($_POST['sexo'])){
-        $edad = $_POST['edad'];
-        $sexo = $_POST['sexo'];
-        $mensaje = "";
-        if($sexo == 'femenino' && $edad >=18 && $edad <=35){
-            $mensaje = "<i>Bienvenida, usted está en el rango de edad permitido.</i>";
-        }else{
-            $mensaje = "<i>Lo sentimos no cumple con los requisitos</i>";
-        }
-    
-
-        echo "<!DOCTYPE html>
-            <html lang = 'es'>
-            <head>
-                <meta charset = 'UTF-8'>
-                <tittle> Resultado Ejercicio 5</tittle>
-            </head>
-            <body>
-                <h1>Resultado del ejercicio 5</h1>
-                <p>{$mensaje}</p>
-                <a href= 'index.php'>Volver al formulario</a>
-            </body>
-            </html>";
-
-        die();
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +22,7 @@
         E-mail: <input type="text" name="email"><br>
         <input type="submit">
     </form>
-    <br>
+    <br/>
     <?php
         if(isset($_POST["name"]) && isset($_POST["email"]))
         {
@@ -61,7 +31,7 @@
             echo $_POST["email"];
         }
     ?>
-    <br>
+    <br/>
     <h2>Ejercicio 2</h2>
     <p>Generación repetitiva de 3 números aleatorios hasta obtener la secuencia: impar, par, impar.</p>
     <?php
@@ -78,7 +48,7 @@
         echo '</pre>';
 
     ?>
-    <br>
+    <br/>
     <h2>Ejercicio 3</h2>
     <p>Utiliza un ciclo while para encontrar el primer número entero obtenido aleatoriamente, pero que además sea múltiplo de un número dado.</p>
     <?php
@@ -89,7 +59,7 @@
         }
     ?>
 
-    <br>
+    <br/>
     <h2>Ejercicio 4</h2>
     <p>Crear un arreglo cuyos índices van de 97 a 122 y cuyos valores son las letras de la ‘a’ a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner el valor en cada índice. </p>
     <?php
@@ -97,20 +67,24 @@
         echo abc();
     ?>
 
-    <br>
+    <br/>
     <h2>Ejercicio 5</h2>
     <p>Preguntar mediante un formulario edad y sexo y si es mujer cuya edad oscile entre los 18 y 35 años mostrar un mensaje de bienvenida apropiado, en caso contrario deberá devolverse otro mensaje indicando el error.</p>
-    <form action = "index.php" method = "post">
+    <form action = "respuestaEj5.php" method = "post">
         <label for="edad"><strong>Edad:</strong></label>
-        <input type="number" id="edad" name="edad" required>
+        <input type="number" id="edad" name="edad" required="required"/>
         <br>
         <label for="sexo"><strong>Sexo:</strong></label>
-        <input type="radio" id="femenino" name = "sexo" value="femenino" required>
+        <input type="radio" id="femenino" name = "sexo" value="femenino" required="required"/>
         <label for="femenino">Femenino</label>
-        <input type= "radio" id="masculino" name="sexo" value="masculino" required>
+        <input type= "radio" id="masculino" name="sexo" value="masculino" required="required"/>
         <label for="masculino">Masculino</label>
-        <br>
-        <input type="submit" value="verificar">
+        <br/>
+        <input type="submit" value="verificar"/>
     </form>
+
+    <br/>
+    <h2>Ejercicio 6</h2>
+    <p> </p>
 </body>
 </html>
