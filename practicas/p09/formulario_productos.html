@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Producto</title>
+    <style>
+        body { 
+            font-family:Verdana; 
+            max-width: 400px; 
+            margin: auto; 
+        }
+        label { 
+            display: flex; 
+            margin-top: 10px; 
+        }
+        input[type="text"], input[type="number"], textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 5px; 
+            box-sizing: border-box; 
+            border-radius: 5px;
+        }
+        input[type="submit"] { 
+            margin-top: 20px; 
+            padding: 10px 20px; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Registrar Nuevo Producto</h1>
+
+    <form action="set_producto_v2.php" method="post">
+        
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" min="0.00" step="0.01" required>
+
+        <label for="detalles">Detalles:</label>
+        <textarea id="detalles" name="detalles" rows="4"></textarea>
+
+        <label for="unidades">Unidades:</label>
+        <input type="number" id="unidades" name="unidades" min="0" required>
+
+        <label for="imagen">Ruta de la Imagen (ej. img/producto.png):</label>
+        <input type="text" id="imagen" name="imagen">
+
+        <input type="submit" value="Registrar Producto">
+        
+    </form>
+
+</body>
+</html>
