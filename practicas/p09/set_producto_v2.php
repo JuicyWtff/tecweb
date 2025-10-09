@@ -10,7 +10,6 @@ $precio = (float)($_POST['precio'] ?? 0.0); //se verifica que el dato sea flotan
 $detalles = $_POST['detalles'] ?? '';
 $unidades = (int)($_POST['unidades'] ?? 0); //se verifica que el dato sea entero
 $imagen = $_POST['imagen'] ?? 'img/default.png';
-$eliminado = 0; // Por defecto, un producto no está eliminado
 
 // CONECTAR A LA BASE DE DATOS
 @$link = new mysqli('localhost', 'root', 'Capulin10', 'marketzone');
@@ -31,7 +30,7 @@ if ($result_check = $link->query($sql_check)) {
     } else {
         // INSERTAR EL NUEVO PRODUCTO SI NO EXISTE 
         // Las variables numéricas ($precio, $unidades, $eliminado) no necesitan comillas.
-        $sql_insert = "INSERT INTO productos(nombre, marca, modelo, precio, detalles, unidades, imagen, eliminado) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', {$eliminado})";
+        $sql_insert = "INSERT INTO productos(nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
 
         // Se ejecuta la inserción 
         if ($link->query($sql_insert)) {
