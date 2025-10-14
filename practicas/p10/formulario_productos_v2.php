@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Producto</title>
+    <title>Registrar Nuevo Producto</title>
     <style>
         body { font-family:Verdana; max-width: 400px; margin: auto; }
         label { display: flex; margin-top: 10px; }
@@ -12,8 +12,8 @@
     </style>
 </head>
 <body>
-    <h1>Modificar Producto</h1>
-    <form action="update_producto.php" method="post" onsubmit="return validarFormulario();">
+    <h1>Registrar Nuevo Producto</h1>
+    <form action="set_producto_v2.php" method="post" onsubmit="return validarFormulario();">
         <input type="hidden" id="id_producto" name="id">
         <label for="nombre">Nombre del Producto:</label>
         <input type="text" id="nombre" name="nombre" >
@@ -36,9 +36,10 @@
         <input type="number" id="unidades" name="unidades" min="0" >
         <label for="imagen">Ruta de la Imagen (ej. img/producto.png):</label>
         <input type="text" id="imagen" name="imagen">
-        <input type="submit" value="Actualizar Producto">
+        <input type="submit" value="Registrar Producto">
     </form>
     <script>
+        // SCRIPT DE VALIDACIÓN 
         function validarFormulario() {
             const nombre = document.getElementById('nombre').value;
             const marca = document.getElementById('marca').value;
@@ -99,15 +100,26 @@
         }
     </script>
     <script>
+        // SCRIPT PARA RELLENAR EL FORMULARIO (CORREGIDO)
         window.onload = function() {
             const params = new URLSearchParams(window.location.search);
-            document.getElementById('id_producto').value = params.get('id');
-            document.getElementById('nombre').value = params.get('nombre');
-            document.getElementById('marca').value = params.get('marca');
-            document.getElementById('modelo').value = params.get('modelo');
-            document.getElementById('precio').value = params.get('precio');
-            document.getElementById('detalles').value = params.get('detalles');
-            document.getElementById('unidades').value = params.get('unidades');
+            const idProducto = params.get('id');
+
+            // Solo si existe un 'id' en la URL, cambiamos a modo "Modificar"
+            if (idProducto) {
+                document.getElementById('id_producto').value = idProducto;
+                document.getElementById('nombre').value = params.get('nombre');
+                document.getElementById('marca').value = params.get('marca');
+                document.getElementById('modelo').value = params.get('modelo');
+                document.getElementById('precio').value = params.get('precio');
+                document.getElementById('detalles').value = params.get('detalles');
+                document.getElementById('unidades').value = params.get('unidades');
+                document.getElementById('imagen').value = params.get('imagen');
+                
+                document.querySelector('h1').textContent = 'Modificar Producto';
+                document.querySelector('input[type="submit"]').value = 'Actualizar Producto';
+                document.querySelector('form').action = 'update_producto.php';
+            }
         };
     </script>
 </body>
