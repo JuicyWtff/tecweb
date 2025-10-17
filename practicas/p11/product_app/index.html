@@ -6,7 +6,6 @@
   </head>
   <body onload="init()">
 
-    <!-- BARRA DE NAVEGACIÓN  -->
     <nav>
       <a href="#">Product App</a>
       
@@ -19,8 +18,7 @@
 
     <div>
       <div>
-        <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
-        <form id="task-form">
+        <form id="task-form" onsubmit="agregarProducto(event)">
           <div>
             <input type="text" id="name" placeholder="Nombre de producto">
           </div>
@@ -28,13 +26,12 @@
             <textarea id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea>
           </div>
           <input type="hidden" id="taskId">
-          <button type="submit" onclick="agregarProducto(event)" >
+          <button type="submit">
             Agregar Producto
           </button>
         </form>
       </div>
 
-      <!-- TABLA  -->
       <div>
         <ul></ul>
 
@@ -51,7 +48,6 @@
       </div>
     </div>
 
-    <!-- Lógica del Frontend -->
     <script src="./app.js"></script>
   </body>
 </html>
