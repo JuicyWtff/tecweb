@@ -9,37 +9,30 @@ var baseJSON = {
   };
 
 
-function buscarProducto(e){
+function buscarProducto(e) {
     e.preventDefault();
 
-    //Se obtiene el término a buscar
-    var searchTerm = document.getElementById('search'). value;
-
-    var client =  getXMLHttpRequest();
-    client.open('POST', './backend/read.php', true);
-    client.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-    client.onreadtstatechange =  function(){
-        //Se verifica si la respuesta está lista y fue satisfactoria
-        if(client.readState == 4 && client.status ==200){
-            console.log('[CLIENTE]\n'+client.responseText);
-            //se obtiene el array de productos
+    var searchTerm = document.getElementById('search').value;
+    var client = getXMLHttpRequest();
+    client.open('POST', './read.php', true);
+    client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    client.onreadystatechange = function () {
+        if (client.readyState == 4 && client.status == 200) {
+            console.log('[CLIENTE]\n' + client.responseText);
+            
             let productos = JSON.parse(client.responseText);
-
-            //se prepara la plantilla que tendrá todas las filas de la tabla
             let template = '';
 
-            //se verifica si el array tiene al menos un producto
-            if(productos.length >0){
-                //Se itera sobre cada producto en el array
+            if (productos.length > 0) {
                 productos.forEach(producto => {
-                    //Se crea una lista HTML con la descripción de cada producto
                     let descripcion = '';
                     descripcion += '<li>precio: ' + producto.precio + '</li>';
                     descripcion += '<li>unidades: ' + producto.unidades + '</li>';
                     descripcion += '<li>modelo: ' + producto.modelo + '</li>';
                     descripcion += '<li>marca: ' + producto.marca + '</li>';
                     descripcion += '<li>detalles: ' + producto.detalles + '</li>';
-                    // SE AGREGA LA FILA (TR) DE ESTE PRODUCTO A LA PLANTILLA
+                    
                     template += `
                         <tr>
                             <td>${producto.id}</td>
@@ -48,20 +41,18 @@ function buscarProducto(e){
                         </tr>
                     `;
                 });
-            }else{
-                // Si el array está vacío, se muestra un mensaje
+            } else {
                 template = `
                     <tr>
                         <td colspan="3" style="text-align: center;">No se encontraron productos.</td>
                     </tr>
                 `;
             }
-            // FINALMENTE, SE INSERTA TODA LA PLANTILLA EN EL ELEMENTO CON ID "productos"
             document.getElementById("productos").innerHTML = template;
-
         }
     };
-    // IMPORTANTE: Se envía el parámetro como "search" para que coincida con el script PHP
+    console.log("Enviando búsqueda:", searchTerm);
+
     client.send("search=" + searchTerm);
 }
 
