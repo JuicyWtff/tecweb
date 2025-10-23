@@ -54,6 +54,8 @@ function listarProductos() {
 }
 
 $(document).ready(function(){
+
+    //BUSCAR PRODUCTOS
     $('#product-result').hide();
     $('#search').keyup(function(e){
         if($('#search').val()){
@@ -100,5 +102,38 @@ $(document).ready(function(){
             listarProductos();
         }
     }); 
+
+
+    //AGREGAR PRODUCTOS
+    $('#product-form').submit(function (e) {
+        e.preventDefault();
+
+        var productoJsonString = $('#description').val();
+        var finalJSON = JSON.parse(productoJsonString);
+        finalJSON['nombre'] = $('#name').val();
+        productoJsonString = JSON.stringify(finalJSON, null, 2);
+
+        $.ajax({
+            url: './backend/product-add.php',
+            type: 'POST',
+            data: productoJsonString,
+            contentType: 'application/json;charset=UTF-8',
+            success: function (response) {
+                let respuesta = JSON.parse(response);
+                let template_bar = `
+                    <li style="list-style: none;">status: ${respuesta.status}</li>
+                    <li style="list-style: none;">message: ${respuesta.message}</li>
+                `;
+                $('#container').html(template_bar);
+                $('#product-result').show();
+                
+                listarProductos();
+
+                $('#product-form').trigger('reset');
+                var JsonString = JSON.stringify(baseJSON, null, 2);
+                $('#description').val(JsonString);
+            }
+        });
+    });
 
 });
