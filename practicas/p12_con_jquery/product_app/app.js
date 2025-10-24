@@ -6,17 +6,11 @@ var baseJSON = {
     "marca": "NA",
     "detalles": "NA",
     "imagen": "img/default.png"
-  };
+};
 
 function init() {
-    /**
-     * Convierte el JSON a string para poder mostrarlo
-     * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
-     */
-    var JsonString = JSON.stringify(baseJSON,null,2);
+    var JsonString = JSON.stringify(baseJSON, null, 2);
     document.getElementById("description").value = JsonString;
-
-    // SE LISTAN TODOS LOS PRODUCTOS
     listarProductos();
 }
 
@@ -56,7 +50,8 @@ function listarProductos() {
 $(document).ready(function(){
 
     //BUSCAR PRODUCTOS
-    $('#product-result').hide();
+    $('#product-result').addClass('d-none');
+    
     $('#search').keyup(function(e){
         if($('#search').val()){
             let search = $('#search').val();
@@ -65,7 +60,6 @@ $(document).ready(function(){
                 type:'GET',
                 data: {search},
                 success: function(response){
-                    //Imprimir el resultado
                     let products = JSON.parse(response);
                     let template = '';
                     let template_bar = '';
@@ -95,14 +89,14 @@ $(document).ready(function(){
                     })
                     $('#container').html(template_bar);
                     $('#products').html(template);
-                    $('#product-result').show();
+                    $('#product-result').removeClass('d-none');
                 } 
             });
-        }else{
+        } else {
             listarProductos();
+            $('#product-result').addClass('d-none');
         }
     }); 
-
 
     //AGREGAR PRODUCTOS
     $('#product-form').submit(function (e) {
@@ -119,21 +113,52 @@ $(document).ready(function(){
             data: productoJsonString,
             contentType: 'application/json;charset=UTF-8',
             success: function (response) {
+                console.log('Respuesta del servidor:', response);
                 let respuesta = JSON.parse(response);
                 let template_bar = `
                     <li style="list-style: none;">status: ${respuesta.status}</li>
                     <li style="list-style: none;">message: ${respuesta.message}</li>
                 `;
                 $('#container').html(template_bar);
-                $('#product-result').show();
+                $('#product-result').removeClass('d-none');
                 
+                // Actualizar la lista de productos
                 listarProductos();
 
-                $('#product-form').trigger('reset');
-                var JsonString = JSON.stringify(baseJSON, null, 2);
-                $('#description').val(JsonString);
+                // Solo resetear el formulario si fue exitoso
+                if (respuesta.status === 'success') {
+                    $('#product-form').trigger('reset');
+                    var JsonString = JSON.stringify(baseJSON, null, 2);
+                    $('#description').val(JsonString);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la petición:', error);
+                console.error('Respuesta completa:', xhr.responseText);
             }
         });
+    });
+
+    // ELIMINAR PRODUCTOS
+    $(document).on('click', '.product-delete', function() {
+        if(confirm('¿Estás seguro de eliminar este producto?')) {
+            let element = $(this)[0].parentElement.parentElement;
+            let id = $(element).attr('productId');
+            $.ajax({
+                url: './backend/product-delete.php?id=' + id,
+                type: 'GET',
+                success: function(response) {
+                    let respuesta = JSON.parse(response);
+                    let template_bar = `
+                        <li style="list-style: none;">status: ${respuesta.status}</li>
+                        <li style="list-style: none;">message: ${respuesta.message}</li>
+                    `;
+                    $('#container').html(template_bar);
+                    $('#product-result').removeClass('d-none');
+                    listarProductos();
+                }
+            });
+        }
     });
 
 });
