@@ -1,20 +1,92 @@
-// JSON BASE A MOSTRAR EN FORMULARIO
-var baseJSON = {
-    "precio": 0.0,
-    "unidades": 1,
-    "modelo": "XX-000",
-    "marca": "NA",
-    "detalles": "NA",
-    "imagen": "img/default.png"
-  };
-
 $(document).ready(function(){
     let edit = false;
 
-    let JsonString = JSON.stringify(baseJSON,null,2);
-    $('#description').val(JsonString);
     $('#product-result').hide();
     listarProductos();
+
+    // Funciones de validación
+    function showValidationError(fieldId, message) {
+        $(`#${fieldId}-error`).text(message).show();
+    }
+
+    function hideValidationError(fieldId) {
+        $(`#${fieldId}-error`).hide();
+    }
+    
+    function hideAsyncNameError() {
+        $('#name-async-error').hide();
+    }
+
+    function validateRequired(fieldId, message) {
+        const value = $(`#${fieldId}`).val().trim();
+        if (value === '') {
+            showValidationError(fieldId, message);
+            return false;
+        }
+        hideValidationError(fieldId);
+        return true;
+    }
+
+    function validatePositiveNumber(fieldId, message) {
+        const value = parseFloat($(`#${fieldId}`).val());
+        if (isNaN(value) || value <= 0) {
+            showValidationError(fieldId, message);
+            return false;
+        }
+        hideValidationError(fieldId);
+        return true;
+    }
+
+    function validateInteger(fieldId, message) {
+        const value = parseInt($(`#${fieldId}`).val(), 10);
+        if (isNaN(value) || value <= 0 || parseFloat($(`#${fieldId}`).val()) !== value) {
+            showValidationError(fieldId, message);
+            return false;
+        }
+        hideValidationError(fieldId);
+        return true;
+    }
+
+    function validateForm() {
+        const isNameValid = validateRequired('name', 'El nombre es requerido.');
+        const isMarcaValid = validateRequired('marca', 'La marca es requerida.');
+        const isModeloValid = validateRequired('modelo', 'El modelo es requerido.');
+        const isPrecioValid = validatePositiveNumber('precio', 'El precio debe ser un número positivo.');
+        const isUnidadesValid = validateInteger('unidades', 'Las unidades deben ser un entero positivo.');
+        const isDetallesValid = validateRequired('detalles', 'Los detalles son requeridos.');
+        const isImagenValid = validateRequired('imagen', 'La URL de la imagen es requerida.');
+
+        return isNameValid && isMarcaValid && isModeloValid && isPrecioValid && isUnidadesValid && isDetallesValid && isImagenValid;
+    }
+
+    // Eventos 'blur' para validación
+    $('#name').blur(() => validateRequired('name', 'El nombre es requerido.'));
+    $('#marca').blur(() => validateRequired('marca', 'La marca es requerida.'));
+    $('#modelo').blur(() => validateRequired('modelo', 'El modelo es requerido.'));
+    $('#detalles').blur(() => validateRequired('detalles', 'Los detalles son requeridos.'));
+    $('#imagen').blur(() => validateRequired('imagen', 'La URL de la imagen es requerida.'));
+    $('#precio').blur(() => validatePositiveNumber('precio', 'El precio debe ser un número positivo.'));
+    $('#unidades').blur(() => validateInteger('unidades', 'Las unidades deben ser un entero positivo.'));
+
+    // Validación asíncrona de nombre
+    $('#name').keyup(function() {
+        const name = $(this).val();
+        if (name.length > 2) { 
+            const id = $('#productId').val();
+
+            $.post('./backend/product-check-name.php', { name, id }, (response) => {
+                const data = JSON.parse(response);
+                if (data.existe) {
+                    $('#name-async-error').text('Ese nombre de producto ya existe.').show();
+                } else {
+                    $('#name-async-error').hide();
+                }
+            });
+        } else {
+            $('#name-async-error').hide();
+        }
+    });
+
 
     function listarProductos() {
         $.ajax({
@@ -44,7 +116,7 @@ $(document).ready(function(){
                                 <td><a href="#" class="product-item">${producto.nombre}</a></td>
                                 <td><ul>${descripcion}</ul></td>
                                 <td>
-                                    <button class="product-delete btn btn-danger" onclick="eliminarProducto()">
+                                    <button class="product-delete btn btn-danger">
                                         Eliminar
                                     </button>
                                 </td>
@@ -121,11 +193,22 @@ $(document).ready(function(){
     $('#product-form').submit(e => {
         e.preventDefault();
 
-        // SE CONVIERTE EL JSON DE STRING A OBJETO
-        let postData = JSON.parse( $('#description').val() );
-        // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
-        postData['nombre'] = $('#name').val();
-        postData['id'] = $('#productId').val();
+        const isAsyncError = $('#name-async-error').is(':visible');
+        if (!validateForm() || isAsyncError) {
+            alert("Por favor, corrige los errores en el formulario.");
+            return; 
+        }
+
+        const postData = {
+            nombre: $('#name').val(),
+            marca: $('#marca').val(),
+            modelo: $('#modelo').val(),
+            precio: $('#precio').val(),
+            unidades: $('#unidades').val(),
+            detalles: $('#detalles').val(),
+            imagen: $('#imagen').val(),
+            id: $('#productId').val()
+        };
 
         /**
          * AQUÍ DEBES AGREGAR LAS VALIDACIONES DE LOS DATOS EN EL JSON
@@ -145,8 +228,9 @@ $(document).ready(function(){
                         <li style="list-style: none;">message: ${respuesta.message}</li>
                     `;
             // SE REINICIA EL FORMULARIO
-            $('#name').val('');
-            $('#description').val(JsonString);
+            $('#product-form').trigger('reset');
+            $('.validation-error').hide();
+
             // SE HACE VISIBLE LA BARRA DE ESTADO
             $('#product-result').show();
             // SE INSERTA LA PLANTILLA PARA LA BARRA DE ESTADO
@@ -158,9 +242,9 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '.product-delete', (e) => {
+    $(document).on('click', '.product-delete', function(e) {
         if(confirm('¿Realmente deseas eliminar el producto?')) {
-            const element = $(this)[0].activeElement.parentElement.parentElement;
+            const element = $(this).closest('tr');
             const id = $(element).attr('productId');
             $.post('./backend/product-delete.php', {id}, (response) => {
                 $('#product-result').hide();
@@ -169,28 +253,29 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.product-item', (e) => {
-        const element = $(this)[0].activeElement.parentElement.parentElement;
+    $(document).on('click', '.product-item', function(e) {
+        e.preventDefault();
+        const element = $(this).closest('tr');
         const id = $(element).attr('productId');
+
         $.post('./backend/product-single.php', {id}, (response) => {
             // SE CONVIERTE A OBJETO EL JSON OBTENIDO
             let product = JSON.parse(response);
             // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
             $('#name').val(product.nombre);
+            $('#marca').val(product.marca);
+            $('#modelo').val(product.modelo);
+            $('#precio').val(product.precio);
+            $('#unidades').val(product.unidades);
+            $('#detalles').val(product.detalles);
+            $('#imagen').val(product.imagen);
             // EL ID SE INSERTA EN UN CAMPO OCULTO PARA USARLO DESPUÉS PARA LA ACTUALIZACIÓN
             $('#productId').val(product.id);
-            // SE ELIMINA nombre, eliminado E id PARA PODER MOSTRAR EL JSON EN EL <textarea>
-            delete(product.nombre);
-            delete(product.eliminado);
-            delete(product.id);
-            // SE CONVIERTE EL OBJETO JSON EN STRING
-            let JsonString = JSON.stringify(product,null,2);
-            // SE MUESTRA STRING EN EL <textarea>
-            $('#description').val(JsonString);
             
+            $('.validation-error').hide();
+
             // SE PONE LA BANDERA DE EDICIÓN EN true
             edit = true;
         });
-        e.preventDefault();
     });    
 });
