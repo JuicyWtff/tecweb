@@ -1,5 +1,6 @@
 <?php
-    include_once __DIR__.'/database.php';
+    /*
+     include_once __DIR__.'/database.php';
 
     // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
     $data = array(
@@ -22,4 +23,16 @@
     
     // SE HACE LA CONVERSIÓN DE ARRAY A JSON
     echo json_encode($data, JSON_PRETTY_PRINT);
+     */
+
+    include_once __DIR__.'/myapi/Products.php';
+
+    $api = new \myapi\Products('marketzone');
+
+    if ( isset($_GET['id']) ) {
+        $api->delete($_GET['id']);
+    }
+
+    echo $api->getData();
+
 ?>
