@@ -1,4 +1,5 @@
 <?php
+    /*
     include_once __DIR__.'/database.php';
 
     $data = array(
@@ -29,4 +30,16 @@
 
     // Se devuelve el JSON
     echo json_encode($data, JSON_PRETTY_PRINT);
+    */
+
+    include_once __DIR__.'/myapi/Products.php';
+
+    $api = new \myapi\Products('marketzone');
+
+    if ( isset($_POST['name']) ) {
+        $id = isset($_POST['id']) ? $_POST['id'] : 0;
+        $api->checkName($_POST['name'], $id);
+    }
+
+    echo $api->getData();
 ?>

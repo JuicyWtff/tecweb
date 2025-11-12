@@ -33,10 +33,7 @@
     $api = new \myapi\Products('marketzone');
     $producto = file_get_contents('php://input');
 
-    if(!empty($producto)) {
-        $jsonOBJ = json_decode($producto);
-        $api->edit($jsonOBJ);
-    }
+    $api->edit($_POST);
 
     echo $api->getData();
 ?>

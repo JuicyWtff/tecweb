@@ -134,7 +134,7 @@ $(document).ready(function(){
         if($('#search').val()) {
             let search = $('#search').val();
             $.ajax({
-                url: './backend/product-search.php?search='+$('#search').val(),
+                url: './backend/product-search.php',
                 data: {search},
                 type: 'GET',
                 success: function (response) {

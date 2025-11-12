@@ -29,8 +29,8 @@
 
     $api = new \myapi\Products('marketzone');
 
-    if ( isset($_GET['id']) ) {
-        $api->delete($_GET['id']);
+    if ( isset($_POST['id']) ) {
+        $api->delete($_POST['id']);
     }
 
     echo $api->getData();

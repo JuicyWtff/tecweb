@@ -36,7 +36,6 @@
 
     $api = new \myapi\Products('marketzone');
     if ( isset($_GET['search']) ) {
-        // 4. Se llama al método search() con el valor recibido
         $api->search($_GET['search']);
     }
     
