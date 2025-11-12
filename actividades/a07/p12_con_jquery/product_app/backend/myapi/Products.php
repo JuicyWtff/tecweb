@@ -44,12 +44,12 @@ class Products extends DataBase {
         }
     }
 
-    public function add($obj) {
-        $sql_check = "SELECT * FROM productos WHERE nombre = '{$obj->nombre}' AND eliminado = 0";
+    public function add($data) {
+        $sql_check = "SELECT * FROM productos WHERE nombre = '{$data['nombre']}' AND eliminado = 0";
 	    $result = $this->conexion->query($sql_check);
         
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO productos VALUES (null, '{$obj->nombre}', '{$obj->marca}', '{$obj->modelo}', {$obj->precio}, '{$obj->detalles}', {$obj->unidades}, '{$obj->imagen}', 0)";
+            $sql = "INSERT INTO productos VALUES (null, '{$data['nombre']}', '{$data['marca']}', '{$data['modelo']}', {$data['precio']}, '{$data['detalles']}', {$data['unidades']}, '{$data['imagen']}', 0)";
             
             if($this->conexion->query($sql)){
                 $this->data['status'] =  "success";
@@ -81,7 +81,8 @@ class Products extends DataBase {
         $sql = "SELECT * FROM productos WHERE id = {$id} AND eliminado = 0";
         
         if ( $result = $this->conexion->query($sql) ) {
-            $this->data = $result->fetch_all(MYSQLI_ASSOC);
+            // Devuelve solo el primer resultado (o null)
+            $this->data = $result->fetch_assoc(); 
             $result->free();
         } else {
             $this->data['message'] = "ERROR: No se ejecutó la consulta. " . $this->conexion->error;
@@ -99,22 +100,36 @@ class Products extends DataBase {
         }
     }
 
-    public function edit($obj) {
+    public function edit($data) {
         $sql = "UPDATE productos SET 
-                nombre = '{$obj->nombre}', 
-                marca = '{$obj->marca}', 
-                modelo = '{$obj->modelo}', 
-                precio = {$obj->precio}, 
-                detalles = '{$obj->detalles}', 
-                unidades = {$obj->unidades}, 
-                imagen = '{$obj->imagen}' 
-                WHERE id = {$obj->id}";
+                nombre = '{$data['nombre']}', 
+                marca = '{$data['marca']}', 
+                modelo = '{$data['modelo']}', 
+                precio = {$data['precio']}, 
+                detalles = '{$data['detalles']}', 
+                unidades = {$data['unidades']}, 
+                imagen = '{$data['imagen']}' 
+                WHERE id = {$data['id']}";
         
         if ($this->conexion->query($sql)) {
             $this->data = array(
                 'status'  => 'success',
                 'message' => 'Producto editado'
             );
+        } else {
+            $this->data['message'] = "ERROR: No se ejecutó la consulta. " . $this->conexion->error;
+        }
+    }
+
+    public function checkName($name, $id = 0) {
+        $sql = "SELECT * FROM productos WHERE nombre = '{$name}' AND id != {$id} AND eliminado = 0";
+        if ( $result = $this->conexion->query($sql) ) {
+            if ($result->num_rows > 0) {
+                $this->data = array('existe' => true);
+            } else {
+                $this->data = array('existe' => false);
+            }
+            $result->free();
         } else {
             $this->data['message'] = "ERROR: No se ejecutó la consulta. " . $this->conexion->error;
         }
