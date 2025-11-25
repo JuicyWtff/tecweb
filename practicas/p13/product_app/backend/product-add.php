@@ -1,44 +1,9 @@
 <?php
-    /*
-     include_once __DIR__.'/database.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
 
-    // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
-    $data = array(
-        'status'  => 'error',
-        'message' => 'Ya existe un producto con ese nombre'
-    );
-    if(isset($_POST['nombre'])) {
-        // SE TRANSFORMA EL POST A UN STRING EN JSON, Y LUEGO A OBJETO
-        $jsonOBJ = json_decode( json_encode($_POST) );
-        // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-        $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
-	    $result = $conexion->query($sql);
-        
-        if ($result->num_rows == 0) {
-            $conexion->set_charset("utf8");
-            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
-            if($conexion->query($sql)){
-                $data['status'] =  "success";
-                $data['message'] =  "Producto agregado";
-            } else {
-                $data['message'] = "ERROR: No se ejecuto $sql. " . mysqli_error($conexion);
-            }
-        }
+    use MYAPI\Create\Products;
 
-        $result->free();
-        // Cierra la conexion
-        $conexion->close();
-    }
-
-    // SE HACE LA CONVERSIÓN DE ARRAY A JSON
-    echo json_encode($data, JSON_PRETTY_PRINT);
-     */
-
-    include_once __DIR__.'/myapi/Products.php';
-
-    $api = new \myapi\Products('marketzone');
-    $producto = file_get_contents('php://input'); //json
-
-    $api->add($_POST);
-    echo $api->getData();
+    $producto = new Products('marketzone');
+    $producto->add($_POST);
+    echo $producto->getData();
 ?>
