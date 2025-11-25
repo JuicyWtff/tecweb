@@ -1,0 +1,16 @@
+{
+    "name": "myapi/productos",
+    "description": "API de productos con PSR-4",
+    "autoload": {
+        "psr-4": {
+            "MYAPI\\": "src/MYAPI/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JuicyWtff",
+            "email": "hugobyjavier999@gmail.com"
+        }
+    ],
+    "require": {}
+}

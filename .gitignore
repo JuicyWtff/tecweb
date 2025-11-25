@@ -1,0 +1,28 @@
+# Composer 
+**/vendor/
+**/composer.lock
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*~
+.cache/
+
+# Node modules (por si se usa jaja)
+**/node_modules/
+
+# Archivos de configuración local
+**/.env
